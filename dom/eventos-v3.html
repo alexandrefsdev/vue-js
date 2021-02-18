@@ -1,0 +1,31 @@
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<div id="app">
+    <p>{{ contador }}</p>
+    <!-- $EVENT SERVE PARA QUANDO FOR PRECISO PASSAR UM PARAMETRO PERDENDO A REFERENCIA DO EVENTO  -->
+    <!-- LEMBRE-SE, É UMA PALAVRA RESERVADA E SEMPRE TEM QUE SER $EVENT -->
+    <button v-on:click="somar(5, $event)">Somar</button>
+    <p v-on:mousemove="atualizarXY">MouseMove: {{ x }} e {{ y }}</p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            contador: 0,
+            x: 0,
+            y: 0
+        },
+        methods: {
+            somar(passo, ev) {
+                console.log(passo,ev);
+                this.contador += passo
+            },
+            atualizarXY(event) {
+                console.log(event);
+                this.x = event.clientX
+                this.y = event.clientY
+            }
+        }
+    })
+</script>

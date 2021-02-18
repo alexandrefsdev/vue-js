@@ -1,0 +1,44 @@
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<div id="app">
+    <p>{{ contador }}</p>
+    <!-- $EVENT SERVE PARA QUANDO FOR PRECISO PASSAR UM PARAMETRO PERDENDO A REFERENCIA DO EVENTO  -->
+    <!-- LEMBRE-SE, É UMA PALAVRA RESERVADA E SEMPRE TEM QUE SER $EVENT -->
+    <button v-on:click="somar(5, $event)">Somar</button>
+    <p v-on:mousemove="atualizarXY">MouseMove: {{ x }} e {{ y }}
+        <!-- <span v-on:mousemove="parar">PARAR AQUI!!!!</span> -->
+        <!-- ou -->
+        <span v-on:mousemove.stop.prevent="">PARAR AQUI!!!!</span> <!-- STOPPROPAGATION DO VUEJS -->
+    </p>
+    <a v-on:click.prevent="" href="http://google.com">Google</a> <!-- PREVENTDEFAULT DO VUEJS -->
+    <a v-on:click.prevent="naoNavegar" href="http://google.com">Google</a> <!--  PREVENTDEFAULT DO VUEJS PASSADO VIA FUNCAO -->
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            contador: 0,
+            x: 0,
+            y: 0
+        },
+        methods: {
+            somar(passo, ev) {
+                console.log(passo,ev);
+                this.contador += passo
+            },
+            atualizarXY(event) {
+                console.log(event);
+                this.x = event.clientX
+                this.y = event.clientY
+            },
+            // parar(e) {
+            //     e.stopPropagation()
+            // }
+            naoNavegar(event) {
+                //event.preventDefault()
+                console.log('Não Navegar');
+            }
+        }
+    })
+</script>
